@@ -8,8 +8,9 @@ export const createTestUser = async () => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, TEST_EMAIL, TEST_PASSWORD);
     return userCredential.user;
-  } catch (error: any) {
-    if (error.code === 'auth/email-already-in-use') {
+  } catch (error) {
+    const err = error as { code?: string };
+    if (err.code === 'auth/email-already-in-use') {
       // If user exists, just sign in
       const userCredential = await signInWithEmailAndPassword(auth, TEST_EMAIL, TEST_PASSWORD);
       return userCredential.user;

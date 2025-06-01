@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { GraduationCap, TrendingUp, History, Award } from "lucide-react";
+import { GraduationCap, History, Award } from "lucide-react";
 
 export default function GradesPage() {
   const currentGrades = [

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Calendar, Clock, BookOpen, ClipboardList } from "lucide-react";
 
 export default function CalendarPage() {
   const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -89,7 +88,6 @@ export default function CalendarPage() {
         <div className="lg:col-span-2">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Calendar className="w-5 h-5" />
               Weekly Schedule
             </h2>
             <div className="overflow-x-auto">
@@ -137,7 +135,6 @@ export default function CalendarPage() {
         <div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Clock className="w-5 h-5" />
               Upcoming Events
             </h2>
             <div className="space-y-4">
@@ -146,7 +143,6 @@ export default function CalendarPage() {
                   <h3 className="font-medium text-gray-900">{event.title}</h3>
                   <p className="text-sm text-gray-600">{event.course}</p>
                   <div className="mt-2 text-sm text-gray-500 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
                     {event.date} at {event.time}
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import Link from "next/link";
@@ -18,7 +19,11 @@ export default function LoginPage() {
     try {
       await signIn(email, password);
     } catch (error: any) {
-      setError(error.message || "Failed to sign in");
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Failed to sign in");
+      }
     }
   };
 

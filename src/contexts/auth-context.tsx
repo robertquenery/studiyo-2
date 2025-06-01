@@ -60,8 +60,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/");
-    } catch (error: any) {
-      throw new Error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Failed to sign in");
+      }
     }
   };
 
@@ -69,8 +73,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       router.push("/");
-    } catch (error: any) {
-      throw new Error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Failed to sign up");
+      }
     }
   };
 
@@ -79,8 +87,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await signOut(auth);
       Cookies.remove('auth-token');
       router.push("/login");
-    } catch (error: any) {
-      throw new Error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Failed to log out");
+      }
     }
   };
 

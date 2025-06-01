@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Search, MessageCircle, Phone, Video, MoreVertical, Send, Paperclip, User, Users, Check, CheckCheck } from "lucide-react";
+import { Search, Phone, Video, MoreVertical, Send, Paperclip, Check, CheckCheck } from "lucide-react";
 
 type Contact = {
   id: string;

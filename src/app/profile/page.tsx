@@ -82,7 +82,7 @@ export default function ProfilePage() {
     };
 
     loadUserProfile();
-  }, [user]);
+  }, [user, formData.assignmentReminders, formData.creditsCompleted, formData.email, formData.emailNotifications, formData.fullName, formData.gpa, formData.major, formData.phone, formData.studentId, formData.year]);
 
   const handleSave = async () => {
     if (!user) return;

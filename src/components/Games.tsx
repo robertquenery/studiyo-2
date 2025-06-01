@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, limit, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, limit } from "firebase/firestore";
 import QuizGame from "./game/QuizGame";
 import GameResults from "./game/GameResults";
 
@@ -19,15 +19,6 @@ interface LeaderboardEntry {
   score: number;
 }
 
-interface GameSession {
-  id: string;
-  status: "waiting" | "active" | "finished";
-  players: Player[];
-  currentQuestionIndex: number;
-  questions: typeof sampleQuestions;
-}
-
-// Sample questions - in production these would come from Firestore
 const sampleQuestions = [
   {
     id: "q1",
@@ -151,14 +142,6 @@ export default function Games() {
     return () => unsubscribe();
   }, []);
 
-  interface GameSession {
-    id: string;
-    status: "waiting" | "active" | "finished";
-    players: Player[];
-    currentQuestionIndex: number;
-    questions: typeof sampleQuestions;
-  }
-
   const startNewGame = async () => {
     try {
       // Create a new game session
@@ -208,27 +191,6 @@ export default function Games() {
 
     return () => unsubscribe();
   }, [currentGame?.id]);
-
-  const joinGame = async (gameId: string, playerName: string) => {
-    try {
-      const player: Player = {
-        id: Math.random().toString(36).substr(2, 9), // Simple ID generation
-        name: playerName,
-        score: 0,
-        answered: false
-      };
-
-      const gameRef = doc(db, "games", gameId);
-      await updateDoc(gameRef, {
-        players: [...(currentGame?.players || []), player],
-      });
-
-      setPlayers([player]);
-    } catch (error) {
-      console.error("Error joining game:", error);
-    }
-  };
-
 
   const updateLeaderboard = async (player: LeaderboardEntry) => {
     try {

@@ -6,7 +6,6 @@ import {
   HomeIcon,
   BookOpenIcon,
   ClipboardListIcon,
-  MessageCircleIcon,
   BellIcon,
   UserIcon,
   CalendarIcon,

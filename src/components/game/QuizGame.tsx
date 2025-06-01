@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
-import { doc, updateDoc, onSnapshot, collection, addDoc } from "firebase/firestore";
+import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import QuestionCard from "./QuestionCard";
 
 interface Question {

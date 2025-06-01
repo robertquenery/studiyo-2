@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { BookOpen, ClipboardList, Calendar, Bell, TrendingUp, Clock, Star, Users } from "lucide-react";
+import { BookOpen, ClipboardList, Bell, Clock, Star, Users, TrendingUp } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -103,7 +103,7 @@ export default function DashboardPage() {
     <div className="max-w-7xl mx-auto py-8 px-4">
       <div className="mb-8">
         <h1 className="text-2xl font-bold mb-2">Welcome back, {userName}!</h1>
-        <p className="text-gray-600">Here's an overview of your academic progress</p>
+        <p className="text-gray-600">Here&apos;s an overview of your academic progress</p>
       </div>
 
       {/* Quick Stats */}

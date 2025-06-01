@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BookOpen, Users, Clock, Calendar, ChevronRight, Play, FileText, Download, User } from "lucide-react";
+import { Calendar, Clock, Play, FileText, Download, User, Users } from "lucide-react";
 
 type Course = {
   id: string;

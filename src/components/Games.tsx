@@ -19,6 +19,14 @@ interface LeaderboardEntry {
   score: number;
 }
 
+interface GameSession {
+  id: string;
+  status: "active" | "finished";
+  players: Player[];
+  currentQuestionIndex: number;
+  questions: typeof sampleQuestions;
+}
+
 const sampleQuestions = [
   {
     id: "q1",

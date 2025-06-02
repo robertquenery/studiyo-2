@@ -45,16 +45,7 @@ export default function AuthenticatedSidebarMenu() {
   return (
     <>
       {/* Mobile toggle button */}
-      <div className="md:hidden flex items-center justify-between bg-white border-b border-gray-200 p-2">
-        <Logo size="medium" showText={false} />
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-          className="p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
+      {/* Removed duplicate mobile toggle button to avoid duplication */}
 
       {/* Sidebar */}
       <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col min-h-screen transform transition-transform duration-300 ease-in-out

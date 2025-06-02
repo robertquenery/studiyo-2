@@ -16,8 +16,8 @@ const sampleLeaderboard: LeaderboardEntry[] = [
 
 export default function Leaderboard() {
   return (
-    <div className="p-6 bg-white rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
+    <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Leaderboard</h2>
       <ol className="list-decimal list-inside space-y-2">
         {sampleLeaderboard.map((entry) => (
           <li key={entry.id} className="flex justify-between border p-3 rounded hover:shadow-md transition">

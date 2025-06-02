@@ -160,24 +160,6 @@ export default function QuizGame({ gameId, playerId, playerName, onGameEnd, onSc
     }
   };
   
-  // Timer effect
-  useEffect(() => {
-    if (gameState?.status !== "active") return;
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          // Time's up - submit no answer
-          handleAnswer("");
-          return QUESTION_TIME;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [gameState?.status]);
-
   if (!gameState || !currentQuestion) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -188,13 +170,13 @@ export default function QuizGame({ gameId, playerId, playerName, onGameEnd, onSc
 
   return (
     <div className="max-w-7xl mx-auto px-4">
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-6">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-xl font-bold">Question {gameState.currentQuestionIndex + 1}/{questions.length}</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Question {gameState.currentQuestionIndex + 1}/{questions.length}</h3>
           <div className="flex items-center gap-4">
-            <div className="bg-gray-50 px-4 py-2 rounded-lg">
-              <div className="text-sm text-gray-600">Current Score</div>
-              <div className="text-xl font-bold text-blue-600">
+            <div className="bg-gray-50 dark:bg-gray-700 px-4 py-2 rounded-lg">
+              <div className="text-sm text-gray-600 dark:text-gray-300">Current Score</div>
+              <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
                 {gameState.players.find(p => p.id === playerId)?.score || 0}
               </div>
             </div>
@@ -210,22 +192,22 @@ export default function QuizGame({ gameId, playerId, playerName, onGameEnd, onSc
         isAnswered={gameState.players.find(p => p.id === playerId)?.answered || false}
       />
 
-      <div className="bg-white rounded-lg shadow-sm p-6 mt-6">
-        <h4 className="text-lg font-semibold mb-4">Players</h4>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mt-6">
+        <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Players</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {gameState.players.map((player) => (
             <div
               key={player.id}
               className={`p-4 rounded-lg ${
                 player.answered 
-                  ? "bg-green-50 border border-green-100" 
-                  : "bg-gray-50 border border-gray-100"
+                  ? "bg-green-50 dark:bg-green-900 border border-green-100 dark:border-green-700" 
+                  : "bg-gray-50 dark:bg-gray-700 border border-gray-100 dark:border-gray-700"
               }`}
             >
-              <div className="font-medium mb-1">{player.name}</div>
-              <div className="text-sm text-gray-600">Score: {player.score}</div>
+              <div className="font-medium mb-1 text-gray-900 dark:text-gray-100">{player.name}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Score: {player.score}</div>
               {player.answered && (
-                <div className="text-xs text-green-600 mt-1">Answered</div>
+                <div className="text-xs text-green-600 dark:text-green-400 mt-1">Answered</div>
               )}
             </div>
           ))}

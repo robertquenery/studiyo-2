@@ -263,25 +263,25 @@ const startNewGame = async () => {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">Educational Games</h1>
-        <p className="text-gray-600">Challenge your knowledge and compete with friends!</p>
+        <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Educational Games</h1>
+        <p className="text-gray-600 dark:text-gray-300">Challenge your knowledge and compete with friends!</p>
       </div>
 
       {!currentGame && !gameEnded && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Start Card */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-lg font-semibold mb-4">Quick Play</h2>
-              <p className="text-gray-600 mb-6">Test your knowledge with 10 challenging questions. Answer quickly for higher points!</p>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Quick Play</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">Test your knowledge with 10 challenging questions. Answer quickly for higher points!</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600">Time per Question</div>
-                  <div className="text-2xl font-bold">20s</div>
+                <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                  <div className="text-sm text-gray-600 dark:text-gray-300">Time per Question</div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">20s</div>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600">Max Points per Question</div>
-                  <div className="text-2xl font-bold">1000</div>
+                <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                  <div className="text-sm text-gray-600 dark:text-gray-300">Max Points per Question</div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">1000</div>
                 </div>
               </div>
               <button
@@ -295,13 +295,13 @@ const startNewGame = async () => {
 
           {/* Leaderboard Card */}
           <div>
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-lg font-semibold mb-4">Leaderboard</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Leaderboard</h2>
               <div className="space-y-3">
                 {leaderboard.map((player, index) => (
                   <div
                     key={player.id}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                    className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
                   >
                     <div className="flex items-center gap-3">
                       <span className={`w-6 h-6 flex items-center justify-center rounded-full text-sm font-medium
@@ -311,9 +311,9 @@ const startNewGame = async () => {
                           'bg-blue-50 text-blue-700'}`}>
                         {index + 1}
                       </span>
-                      <span className="font-medium">{player.name}</span>
+                      <span className="font-medium text-gray-900 dark:text-gray-100">{player.name}</span>
                     </div>
-                    <div className="font-semibold text-blue-600">{player.score} pts</div>
+                    <div className="font-semibold text-blue-600 dark:text-blue-400">{player.score} pts</div>
                   </div>
                 ))}
               </div>

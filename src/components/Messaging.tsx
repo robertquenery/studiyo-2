@@ -46,9 +46,9 @@ export default function Messaging() {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-full p-6 bg-white rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-4">Messaging</h2>
-      <div className="flex-1 overflow-auto mb-4 border rounded p-4 space-y-3">
+    <div className="flex flex-col h-full p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Messaging</h2>
+      <div className="flex-1 overflow-auto mb-4 border rounded p-4 space-y-3 border-gray-300 dark:border-gray-700">
         {messages.map((msg) => (
           <div key={msg.id} className="space-y-1">
             <div className="text-sm font-semibold">{msg.sender}</div>

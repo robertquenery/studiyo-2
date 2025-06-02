@@ -100,22 +100,22 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4">
+    <div className="max-w-7xl mx-auto py-8 px-4 bg-gray-50 dark:bg-gray-900">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">Welcome back, {userName}!</h1>
-        <p className="text-gray-600">Here&apos;s an overview of your academic progress</p>
+        <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Welcome back, {userName}!</h1>
+        <p className="text-gray-600 dark:text-gray-300">Here&apos;s an overview of your academic progress</p>
       </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {quickStats.map((stat, index) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+          <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="text-blue-600">{stat.icon}</div>
               <TrendingUp className="w-4 h-4 text-green-500" />
             </div>
-            <div className="text-2xl font-bold mb-1">{stat.value}</div>
-            <div className="text-gray-600 text-sm">{stat.label}</div>
+            <div className="text-2xl font-bold mb-1 text-gray-900 dark:text-gray-100">{stat.value}</div>
+            <div className="text-gray-600 dark:text-gray-300 text-sm">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -123,8 +123,8 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Upcoming Assignments */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <ClipboardList className="w-5 h-5" />
               Upcoming Assignments
             </h2>
@@ -135,15 +135,15 @@ export default function DashboardPage() {
                   onClick={() => window.location.href = `/courses/${assignment.course.split(' ')[0].toLowerCase()}`}
                   className="w-full text-left group"
                 >
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg transition-all duration-200 group-hover:bg-gray-100">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-all duration-200 group-hover:bg-gray-100 dark:group-hover:bg-gray-600">
                     <div>
-                      <h3 className="font-medium text-gray-900 group-hover:text-blue-600">{assignment.title}</h3>
-                      <p className="text-sm text-gray-600">{assignment.course}</p>
+                      <h3 className="font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-600">{assignment.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{assignment.course}</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-medium text-gray-900">{assignment.dueDate}</div>
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{assignment.dueDate}</div>
                       <span className={`text-xs px-2 py-1 rounded-full ${
-                        assignment.status === 'in-progress' ? 'bg-blue-100 text-blue-700' : 'bg-yellow-100 text-yellow-700'
+                        assignment.status === 'in-progress' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300'
                       }`}>
                         {assignment.status === 'in-progress' ? 'In Progress' : 'Pending'}
                       </span>
@@ -154,52 +154,52 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Recent Activity */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Clock className="w-5 h-5" />
-              Recent Activity
-            </h2>
-            <div className="space-y-4">
-              {recentActivity.map((activity, index) => (
-                <button
-                  key={index}
-                  onClick={() => window.location.href = `/courses/${activity.details.split(' - ')[1].toLowerCase()}`}
-                  className="w-full text-left transition-all duration-200 hover:bg-gray-100"
-                >
-                  <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
-                    <div className="w-2 h-2 mt-2 rounded-full bg-blue-600"></div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">{activity.action}</h3>
-                      <p className="text-sm text-gray-600">{activity.details}</p>
-                      <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
-                    </div>
+        {/* Recent Activity */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+            <Clock className="w-5 h-5" />
+            Recent Activity
+          </h2>
+          <div className="space-y-4">
+            {recentActivity.map((activity, index) => (
+              <button
+                key={index}
+                onClick={() => window.location.href = `/courses/${activity.details.split(' - ')[1].toLowerCase()}`}
+                className="w-full text-left transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <div className="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <div className="w-2 h-2 mt-2 rounded-full bg-blue-600"></div>
+                  <div>
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">{activity.action}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{activity.details}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{activity.time}</p>
                   </div>
-                </button>
-              ))}
-            </div>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
+      </div>
 
         {/* Announcements */}
         <div>
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Bell className="w-5 h-5" />
               Announcements
             </h2>
             <div className="space-y-4">
               {announcements.map((announcement, index) => (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`w-2 h-2 rounded-full ${
                       announcement.priority === 'high' ? 'bg-red-500' :
                       announcement.priority === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
                     }`}></span>
-                    <h3 className="font-medium text-gray-900">{announcement.title}</h3>
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">{announcement.title}</h3>
                   </div>
-                  <p className="text-sm text-gray-600 mb-2">{announcement.content}</p>
-                  <p className="text-xs text-gray-500">{announcement.date}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{announcement.content}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{announcement.date}</p>
                 </div>
               ))}
             </div>

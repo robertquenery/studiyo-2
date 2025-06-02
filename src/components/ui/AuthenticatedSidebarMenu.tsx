@@ -24,7 +24,7 @@ import {
 export default function AuthenticatedSidebarMenu() {
   const pathname = usePathname();
   const { user, logout } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   if (!user || pathname === '/login') {
     return null;
@@ -48,8 +48,8 @@ export default function AuthenticatedSidebarMenu() {
       {/* Removed duplicate mobile toggle button to avoid duplication */}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col min-h-screen transform transition-transform duration-300 ease-in-out
-        ${isOpen ? "translate-x-0 md:translate-x-0 md:static md:flex" : "-translate-x-full md:-translate-x-full md:absolute md:flex"}`} style={{ willChange: 'transform' }}>
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col min-h-screen overflow-y-auto transform transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0 md:translate-x-0 md:static md:flex" : "-translate-x-full md:-translate-x-full md:absolute md:flex"}`} style={{ willChange: 'transform', maxHeight: '100vh' }}>
         <div className="p-2 border-b border-gray-200 flex justify-center items-center relative">
           <div>
             <Logo size="medium" showText={false} />

@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, limit, getDoc } from "firebase/firestore";
 import QuizGame from "./game/QuizGame";
 import GameResults from "./game/GameResults";
+import { useAuth } from "@/contexts/auth-context";
 
 interface Player {
   id: string;
@@ -134,51 +135,81 @@ export default function Games() {
   const [currentGame, setCurrentGame] = useState<GameSession | null>(null);
   const [players, setPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState(false);
-  const [leaderboard, setLeaderboard] = useState<Player[]>([]);
+const [leaderboard, setLeaderboard] = useState<Player[]>([]);
+const [fullName, setFullName] = useState<string | null>(null);
 
-  // Subscribe to leaderboard updates
-  useEffect(() => {
-    const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const leaderboardData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      } as Player));
-      setLeaderboard(leaderboardData);
-    });
+const { user } = useAuth();
 
-    return () => unsubscribe();
-  }, []);
-
-  const startNewGame = async () => {
+// Fetch full user profile to get fullName
+useEffect(() => {
+  const fetchUserProfile = async () => {
+    if (!user) return;
     try {
-      // Create a new game session
-      const newPlayer: Player = {
-        id: Math.random().toString(36).substr(2, 9),
-        name: "You",
-        score: 0,
-        answered: false
-      };
-
-      const gameData: Omit<GameSession, "id"> = {
-        status: "active",
-        players: [newPlayer],
-        currentQuestionIndex: 0,
-        questions: sampleQuestions,
-      };
-
-      const gameRef = await addDoc(collection(db, "games"), gameData);
-
-      setCurrentGame({
-        id: gameRef.id,
-        ...gameData
-      } as GameSession);
-      setPlayers([newPlayer]);
-      setGameEnded(false);
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setFullName(userData.fullName || null);
+      }
     } catch (error) {
-      console.error("Error starting new game:", error);
+      console.error("Error fetching user profile:", error);
     }
   };
+  fetchUserProfile();
+}, [user]);
+
+// Subscribe to leaderboard updates
+useEffect(() => {
+  const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const leaderboardData = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as Player));
+    // Replace any "You" names with actual user fullName
+    const updatedLeaderboard = leaderboardData.map(player => {
+      if (player.name === "You" && fullName) {
+        return { ...player, name: fullName };
+      }
+      return player;
+    });
+    setLeaderboard(updatedLeaderboard);
+  });
+
+  return () => unsubscribe();
+}, [fullName]);
+
+const startNewGame = async () => {
+  try {
+    if (!fullName) {
+      throw new Error("User full name is required to start a game.");
+    }
+    const newPlayer: Player = {
+      id: Math.random().toString(36).substr(2, 9),
+      name: fullName,
+      score: 0,
+      answered: false
+    };
+
+    const gameData: Omit<GameSession, "id"> = {
+      status: "active",
+      players: [newPlayer],
+      currentQuestionIndex: 0,
+      questions: sampleQuestions,
+    };
+
+    const gameRef = await addDoc(collection(db, "games"), gameData);
+
+    setCurrentGame({
+      id: gameRef.id,
+      ...gameData
+    } as GameSession);
+    setPlayers([newPlayer]);
+    setGameEnded(false);
+  } catch (error) {
+    console.error("Error starting new game:", error);
+  }
+};
 
   // Subscribe to game updates
   useEffect(() => {
@@ -305,16 +336,19 @@ export default function Games() {
         />
       )}
 
-      {gameEnded && currentGame && (
-        <GameResults
-          players={currentGame.players}
-          onPlayAgain={() => {
-            setCurrentGame(null);
-            setGameEnded(false);
-            setPlayers([]); // Reset players for new game
-          }}
-        />
-      )}
+{gameEnded && currentGame && (
+  <GameResults
+    players={currentGame.players.map(player => ({
+      ...player,
+      name: player.id === players[0]?.id ? players[0]?.name : player.name
+    }))}
+    onPlayAgain={() => {
+      setCurrentGame(null);
+      setGameEnded(false);
+      setPlayers([]); // Reset players for new game
+    }}
+  />
+)}
     </div>
   );
 }

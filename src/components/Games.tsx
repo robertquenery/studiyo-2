@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, limit, getDoc } from "firebase/firestore";
-import QuizGame from "./game/QuizGame";
+import { QuizGame } from "./game/QuizGame";
 import GameResults from "./game/GameResults";
 import { useAuth } from "@/contexts/auth-context";
 
@@ -31,102 +31,102 @@ interface GameSession {
 const sampleQuestions = [
   {
     id: "q1",
-    text: "What is the capital of France?",
+    text: "What is the main purpose of Agile Project Management?",
     answers: [
-      { id: "a1", text: "London", isCorrect: false },
-      { id: "a2", text: "Paris", isCorrect: true },
-      { id: "a3", text: "Berlin", isCorrect: false },
-      { id: "a4", text: "Madrid", isCorrect: false },
+      { id: "q1a", text: "To complete projects with no customer input", isCorrect: false },
+      { id: "q1b", text: "To follow a strict plan from start to finish", isCorrect: false },
+      { id: "q1c", text: "To deliver small, working pieces of a product quickly and often", isCorrect: true },
+      { id: "q1d", text: "To avoid changes during the project", isCorrect: false },
     ],
   },
   {
     id: "q2",
-    text: "Which planet is known as the Red Planet?",
+    text: "Which of the following is a core value of Agile?",
     answers: [
-      { id: "a1", text: "Venus", isCorrect: false },
-      { id: "a2", text: "Jupiter", isCorrect: false },
-      { id: "a3", text: "Mars", isCorrect: true },
-      { id: "a4", text: "Saturn", isCorrect: false },
+      { id: "q2a", text: "Contracts over collaboration", isCorrect: false },
+      { id: "q2b", text: "Detailed planning over flexibility", isCorrect: false },
+      { id: "q2c", text: "Individuals and interactions over processes and tools", isCorrect: true },
+      { id: "q2d", text: "Strict deadlines over customer satisfaction", isCorrect: false },
     ],
   },
   {
     id: "q3",
-    text: "What is the largest ocean on Earth?",
+    text: "What does “iterative development” mean in Agile?",
     answers: [
-      { id: "a1", text: "Atlantic Ocean", isCorrect: false },
-      { id: "a2", text: "Indian Ocean", isCorrect: false },
-      { id: "a3", text: "Arctic Ocean", isCorrect: false },
-      { id: "a4", text: "Pacific Ocean", isCorrect: true },
+      { id: "q3a", text: "Building everything at once", isCorrect: false },
+      { id: "q3b", text: "Skipping testing phases", isCorrect: false },
+      { id: "q3c", text: "Delivering work in repeated cycles with feedback", isCorrect: true },
+      { id: "q3d", text: "Outsourcing tasks to save time", isCorrect: false },
     ],
   },
   {
     id: "q4",
-    text: "Who painted the Mona Lisa?",
+    text: "In Scrum, who removes obstacles so the team can work smoothly?",
     answers: [
-      { id: "a1", text: "Vincent van Gogh", isCorrect: false },
-      { id: "a2", text: "Leonardo da Vinci", isCorrect: true },
-      { id: "a3", text: "Pablo Picasso", isCorrect: false },
-      { id: "a4", text: "Michelangelo", isCorrect: false },
+      { id: "q4a", text: "Product Owner", isCorrect: false },
+      { id: "q4b", text: "Scrum Master", isCorrect: true },
+      { id: "q4c", text: "Stakeholder", isCorrect: false },
+      { id: "q4d", text: "Team Lead", isCorrect: false },
     ],
   },
   {
     id: "q5",
-    text: "What is the chemical symbol for gold?",
+    text: "What is the role of the Product Owner in Agile?",
     answers: [
-      { id: "a1", text: "Go", isCorrect: false },
-      { id: "a2", text: "Gd", isCorrect: false },
-      { id: "a3", text: "Au", isCorrect: true },
-      { id: "a4", text: "Ag", isCorrect: false },
+      { id: "q5a", text: "Write all the code", isCorrect: false },
+      { id: "q5b", text: "Manage the team’s vacations", isCorrect: false },
+      { id: "q5c", text: "Prioritize the product backlog and represent the customer", isCorrect: true },
+      { id: "q5d", text: "Approve salaries", isCorrect: false },
     ],
   },
   {
     id: "q6",
-    text: "Which country is home to Machu Picchu?",
+    text: "Which document lists and prioritizes features or tasks in Agile?",
     answers: [
-      { id: "a1", text: "Brazil", isCorrect: false },
-      { id: "a2", text: "Peru", isCorrect: true },
-      { id: "a3", text: "Chile", isCorrect: false },
-      { id: "a4", text: "Ecuador", isCorrect: false },
+      { id: "q6a", text: "Business Case", isCorrect: false },
+      { id: "q6b", text: "Risk Register", isCorrect: false },
+      { id: "q6c", text: "Product Backlog", isCorrect: true },
+      { id: "q6d", text: "Sprint Burndown", isCorrect: false },
     ],
   },
   {
     id: "q7",
-    text: "What is the smallest prime number?",
+    text: "What is the typical timebox for a Scrum sprint?",
     answers: [
-      { id: "a1", text: "1", isCorrect: false },
-      { id: "a2", text: "2", isCorrect: true },
-      { id: "a3", text: "3", isCorrect: false },
-      { id: "a4", text: "0", isCorrect: false },
+      { id: "q7a", text: "1 day", isCorrect: false },
+      { id: "q7b", text: "2–4 weeks", isCorrect: true },
+      { id: "q7c", text: "6 months", isCorrect: false },
+      { id: "q7d", text: "Until the project is done", isCorrect: false },
     ],
   },
   {
     id: "q8",
-    text: "Which gas makes up about 78% of Earth's atmosphere?",
+    text: "Why do Agile teams hold sprint retrospectives?",
     answers: [
-      { id: "a1", text: "Oxygen", isCorrect: false },
-      { id: "a2", text: "Carbon Dioxide", isCorrect: false },
-      { id: "a3", text: "Nitrogen", isCorrect: true },
-      { id: "a4", text: "Hydrogen", isCorrect: false },
+      { id: "q8a", text: "To reward top-performing developers", isCorrect: false },
+      { id: "q8b", text: "To discuss progress with investors", isCorrect: false },
+      { id: "q8c", text: "To improve how the team works in the next sprint", isCorrect: true },
+      { id: "q8d", text: "To plan marketing strategies", isCorrect: false },
     ],
   },
   {
     id: "q9",
-    text: "In which year did World War II end?",
+    text: "What does a \"burn-down chart\" show?",
     answers: [
-      { id: "a1", text: "1944", isCorrect: false },
-      { id: "a2", text: "1945", isCorrect: true },
-      { id: "a3", text: "1946", isCorrect: false },
-      { id: "a4", text: "1943", isCorrect: false },
+      { id: "q9a", text: "How much budget is left", isCorrect: false },
+      { id: "q9b", text: "Number of bugs found", isCorrect: false },
+      { id: "q9c", text: "Work remaining in a sprint", isCorrect: true },
+      { id: "q9d", text: "Hours worked by each team member", isCorrect: false },
     ],
   },
   {
     id: "q10",
-    text: "What is the hardest natural substance on Earth?",
+    text: "Which statement best describes Agile teams?",
     answers: [
-      { id: "a1", text: "Gold", isCorrect: false },
-      { id: "a2", text: "Iron", isCorrect: false },
-      { id: "a3", text: "Diamond", isCorrect: true },
-      { id: "a4", text: "Quartz", isCorrect: false },
+      { id: "q10a", text: "Teams work separately and only report to the manager", isCorrect: false },
+      { id: "q10b", text: "Teams follow strict roles and never collaborate", isCorrect: false },
+      { id: "q10c", text: "Teams are cross-functional and self-organizing", isCorrect: true },
+      { id: "q10d", text: "Teams wait for instructions from the Product Owner before starting anything", isCorrect: false },
     ],
   },
 ];
@@ -136,6 +136,7 @@ export default function Games() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [gameEnded, setGameEnded] = useState(false);
 const [leaderboard, setLeaderboard] = useState<Player[]>([]);
+
 const [fullName, setFullName] = useState<string | null>(null);
 
 const { user } = useAuth();

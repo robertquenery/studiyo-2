@@ -44,10 +44,10 @@ export default function QuestionCard({
       </div>
 
       {/* Question */}
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <h2 className="text-2xl font-bold text-center mb-2">{question}</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+        <h2 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-gray-100">{question}</h2>
         <div className="flex justify-between items-center text-center">
-          <p className="text-gray-600">Time left: {timeLeft}s</p>
+          <p className="text-gray-600 dark:text-gray-300">Time left: {timeLeft}s</p>
           <p className="text-green-600 font-semibold">
             Potential points: {potentialPoints}
           </p>
@@ -64,7 +64,7 @@ export default function QuestionCard({
             className={`p-6 rounded-lg text-white font-bold text-lg transition-transform hover:scale-105 ${
               isAnswered ? "opacity-50" : ""
             }`}
-            style={{ backgroundColor: colors[index] }}
+            style={{ backgroundColor: colors[index], color: "white" }}
           >
             {answer.text}
           </button>

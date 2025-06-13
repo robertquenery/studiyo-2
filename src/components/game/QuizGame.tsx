@@ -39,7 +39,7 @@ interface QuizGameProps {
   onScoreUpdate?: (player: { id: string; name: string; score: number }) => void;
 }
 
-export default function QuizGame({ gameId, playerId, playerName, onGameEnd, onScoreUpdate }: QuizGameProps) {
+export function QuizGame({ gameId, playerId, playerName, onGameEnd, onScoreUpdate }: QuizGameProps) {
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);

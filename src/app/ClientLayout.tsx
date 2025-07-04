@@ -5,6 +5,7 @@ import AuthenticatedSidebarMenu from "@/components/ui/AuthenticatedSidebarMenu";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { DarkModeProvider, useDarkMode } from "@/contexts/dark-mode-context";
+import Footer from "@/components/ui/Footer";
 
 function DarkModeWrapper({ children }: { children: React.ReactNode }) {
   const { darkMode } = useDarkMode();
@@ -34,7 +35,8 @@ export default function ClientLayout({
       <DarkModeProvider>
         <DarkModeWrapper>
           <AuthenticatedSidebarMenu />
-          <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-6">
+
+          <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-6 flex flex-col min-h-screen">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={pathname}
@@ -42,11 +44,12 @@ export default function ClientLayout({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                style={{ height: "100%" }}
+                style={{ flexGrow: 1 }}
               >
                 {children}
               </motion.div>
             </AnimatePresence>
+            <Footer />
           </main>
         </DarkModeWrapper>
       </DarkModeProvider>

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AboutUsPage() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
@@ -17,10 +19,12 @@ export default function AboutUsPage() {
         <h2 className="text-2xl font-semibold mb-6">OUR TEAM</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
           <div className="flex items-center space-x-6">
-            <img
+            <Image
               src="https://i.imgur.com/QDGQrat.png"
               alt="Jasmin Angel Bartolome"
-              className="w-28 h-28 rounded-full object-cover shadow-lg"
+              width={112}
+              height={112}
+              className="rounded-full object-cover shadow-lg"
             />
             <div>
               <p className="text-xl font-semibold">Jasmin Angel Bartolome</p>
@@ -28,21 +32,25 @@ export default function AboutUsPage() {
             </div>
           </div>
           <div className="flex items-center space-x-6">
-          <img
-            src="https://i.imgur.com/yYAlzfi.png"
-            alt="Jashanpreet Kaur"
-            className="w-28 h-28 rounded-full object-cover shadow-lg"
-          />
+            <Image
+              src="https://i.imgur.com/yYAlzfi.png"
+              alt="Jashanpreet Kaur"
+              width={112}
+              height={112}
+              className="rounded-full object-cover shadow-lg"
+            />
             <div>
               <p className="text-xl font-semibold">Jashanpreet Kaur</p>
               <p className="text-gray-700 dark:text-gray-300">Scrum Master</p>
             </div>
           </div>
           <div className="flex items-center space-x-6">
-            <img
+            <Image
               src="https://i.imgur.com/IIfixjS.png"
               alt="Robert John Quenery"
-              className="w-28 h-28 rounded-full object-cover shadow-lg"
+              width={112}
+              height={112}
+              className="rounded-full object-cover shadow-lg"
             />
             <div>
               <p className="text-xl font-semibold">Robert John Quenery</p>
@@ -50,10 +58,12 @@ export default function AboutUsPage() {
             </div>
           </div>
           <div className="flex items-center space-x-6">
-            <img
+            <Image
               src="https://i.imgur.com/Omk3H9I.png"
               alt="Arvin Jake Garcia"
-              className="w-28 h-28 rounded-full object-cover shadow-lg"
+              width={112}
+              height={112}
+              className="rounded-full object-cover shadow-lg"
             />
             <div>
               <p className="text-xl font-semibold">Arvin Jake Garcia</p>

@@ -23,7 +23,7 @@ const assignments = [
   }
 ];
 
-const getStatusColor = (status) => {
+const getStatusColor = (status: string) => {
   switch (status) {
     case "completed":
       return "bg-green-100 text-green-700";
@@ -38,7 +38,7 @@ const getStatusColor = (status) => {
   }
 };
 
-const getStatusIcon = (status) => {
+const getStatusIcon = (status: string) => {
   switch (status) {
     case "completed":
       return <CheckCircle className="w-5 h-5" />;

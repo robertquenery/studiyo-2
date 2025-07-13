@@ -19,7 +19,7 @@ interface AuthContextType {
   user: User | null;
   claims: Record<string, unknown> | null;
   isLoading: boolean;
-  signIn: (email: string, password: string) => Promise<ReturnType<typeof signInWithEmailAndPassword>>;
+  signIn: (email: string, password: string) => Promise<UserCredential>;
   signUp: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }

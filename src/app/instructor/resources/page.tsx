@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BookOpen, FileText, Video, Download, Book, Calculator, Globe, Search } from "lucide-react";
+import { BookOpen, FileText, Video, Download, Book, Calculator, Globe } from "lucide-react";
 
 const courseResources = [
   {
@@ -106,9 +106,11 @@ export default function InstructorResourcesPage() {
                       <div key={rIndex} className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                         <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{resource.name}</p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {resource.type === "textbook" 
+                          {resource.type === "textbook" && "author" in resource && "year" in resource
                             ? `${resource.author} • ${resource.year}`
-                            : `${resource.publisher} • ${resource.access}`}
+                            : "publisher" in resource && "access" in resource
+                            ? `${resource.publisher} • ${resource.access}`
+                            : ""}
                         </p>
                       </div>
                     ))}

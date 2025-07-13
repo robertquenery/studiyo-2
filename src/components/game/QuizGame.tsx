@@ -42,7 +42,7 @@ interface QuizGameProps {
 export function QuizGame({ gameId, playerId, playerName, onGameEnd, onScoreUpdate }: QuizGameProps) {
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
+const [timeLeft] = useState(QUESTION_TIME);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
 
   // Subscribe to game state changes
@@ -133,7 +133,7 @@ export function QuizGame({ gameId, playerId, playerName, onGameEnd, onScoreUpdat
         onGameEnd();
       }
     }
-  }, [currentQuestion, gameState, playerId, playerName, questions, timeLeft, onScoreUpdate, onGameEnd]);
+  }, [currentQuestion, gameState, playerId, playerName, questions, timeLeft, onScoreUpdate, onGameEnd, gameId]);
   
   if (!gameState || !currentQuestion) {
     return (

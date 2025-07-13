@@ -17,9 +17,9 @@ import Cookies from 'js-cookie';
 
 interface AuthContextType {
   user: User | null;
-  claims: Record<string, any> | null;
+  claims: Record<string, unknown> | null;
   isLoading: boolean;
-  signIn: (email: string, password: string) => Promise<any>;
+  signIn: (email: string, password: string) => Promise<ReturnType<typeof signInWithEmailAndPassword>>;
   signUp: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -28,7 +28,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [claims, setClaims] = useState<Record<string, any> | null>(null);
+  const [claims, setClaims] = useState<Record<string, unknown> | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
@@ -44,9 +44,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // Get the ID token and store it in a session cookie (no expiration)
           const token = idTokenResult.token;
           Cookies.set('auth-token', token, { sameSite: 'strict', secure: true }); // Set secure and sameSite flags, unified cookie name
-        } catch (error) {
-          setClaims(null);
-        }
+          } catch (error: unknown) {
+            setClaims(null);
+          }
       } else {
         // Remove the token when user is not authenticated
         Cookies.remove('auth-token');

@@ -55,16 +55,16 @@ export default function ProfilePage() {
         } else {
           // Create initial profile document
           const initialData = {
-            fullName: user.displayName || formData.fullName,
-            email: user.email || formData.email,
-            studentId: formData.studentId,
-            phone: formData.phone,
-            major: formData.major,
-            year: formData.year,
-            gpa: formData.gpa,
-            creditsCompleted: formData.creditsCompleted,
-            emailNotifications: formData.emailNotifications,
-            assignmentReminders: formData.assignmentReminders,
+            fullName: user.displayName || "",
+            email: user.email || "",
+            studentId: "",
+            phone: "",
+            major: "",
+            year: "",
+            gpa: "",
+            creditsCompleted: "",
+            emailNotifications: true,
+            assignmentReminders: true,
           };
           
           await setDoc(userDocRef, initialData);

@@ -79,14 +79,14 @@ export function QuizGame({ gameId, playerId, playerName, onGameEnd, onScoreUpdat
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [gameState?.status]);
+  }, [gameState?.status, handleAnswer]);
 
   // Reset timer when question changes
   useEffect(() => {
     if (gameState?.status === "active") {
       setTimeLeft(QUESTION_TIME);
     }
-  }, [gameState?.currentQuestionIndex]);
+  }, [gameState?.currentQuestionIndex, gameState?.status]);
 
   const handleAnswer = async (answerId: string) => {
     if (!gameState || !currentQuestion) return;

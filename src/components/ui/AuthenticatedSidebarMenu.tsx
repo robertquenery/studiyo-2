@@ -68,7 +68,9 @@ export default function AuthenticatedSidebarMenu() {
         ${isOpen ? "translate-x-0 md:translate-x-0 md:static md:flex" : "-translate-x-full md:-translate-x-full md:absolute md:flex"}`} style={{ willChange: 'transform', maxHeight: '100vh' }}>
         <div className="p-2 border-b border-gray-200 dark:border-gray-700 flex justify-center items-center relative">
           <div>
-            <img src="https://i.imgur.com/FYiwB2Q.png" alt="Logo" className="h-60 w-auto" />
+            {/* Replaced <img> with Next.js <Image> component */}
+            {/* Import Image at the top of the file */}
+            <Image src="https://i.imgur.com/FYiwB2Q.png" alt="Logo" className="h-60 w-auto" width={240} height={240} />
           </div>
           <button
             onClick={() => setIsOpen(false)}

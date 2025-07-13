@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // Get the ID token and store it in a session cookie (no expiration)
           const token = idTokenResult.token;
           Cookies.set('auth-token', token, { sameSite: 'strict', secure: true }); // Set secure and sameSite flags, unified cookie name
-          } catch (error: unknown) {
+          } catch {
             setClaims(null);
           }
       } else {

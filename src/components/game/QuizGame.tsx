@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { db } from "@/lib/firebase";
 import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import QuestionCard from "./QuestionCard";
@@ -63,32 +63,7 @@ export function QuizGame({ gameId, playerId, playerName, onGameEnd, onScoreUpdat
     return () => unsubscribe();
   }, [gameId]);
 
-  // Timer effect
-  useEffect(() => {
-    if (gameState?.status !== "active") return;
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          // Time's up - submit no answer
-          handleAnswer("");
-          return QUESTION_TIME;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [gameState?.status, handleAnswer]);
-
-  // Reset timer when question changes
-  useEffect(() => {
-    if (gameState?.status === "active") {
-      setTimeLeft(QUESTION_TIME);
-    }
-  }, [gameState?.currentQuestionIndex, gameState?.status]);
-
-  const handleAnswer = async (answerId: string) => {
+  const handleAnswer = useCallback(async (answerId: string) => {
     if (!gameState || !currentQuestion) return;
 
     const isCorrect = currentQuestion.answers.find(a => a.id === answerId)?.isCorrect || false;
@@ -158,7 +133,7 @@ export function QuizGame({ gameId, playerId, playerName, onGameEnd, onScoreUpdat
         onGameEnd();
       }
     }
-  };
+  }, [currentQuestion, gameState, playerId, playerName, questions, timeLeft, onScoreUpdate, onGameEnd]);
   
   if (!gameState || !currentQuestion) {
     return (

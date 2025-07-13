@@ -230,7 +230,7 @@ const startNewGame = async () => {
     });
 
     return () => unsubscribe();
-  }, [currentGame?.id]);
+  }, [currentGame?.id, currentGame]);
 
   const updateLeaderboard = async (player: LeaderboardEntry) => {
     try {

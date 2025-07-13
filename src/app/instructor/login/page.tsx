@@ -25,7 +25,7 @@ export default function InstructorLoginPage() {
         setError("User not found after sign in.");
         return;
       }
-      const user = (userCredential as any).user;
+      const user = userCredential.user;
       const idTokenResult = await user.getIdTokenResult(true); // force refresh token
       const claims = idTokenResult.claims;
       console.log("ID Token Claims:", claims);

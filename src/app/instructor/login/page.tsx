@@ -38,7 +38,7 @@ export default function InstructorLoginPage() {
         setError("You are not authorized as an instructor.");
         await signOut(auth);
       }
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
       } else {

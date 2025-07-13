@@ -81,7 +81,7 @@ export default function InstructorDiscussionsPage() {
                   <tr className="bg-gray-50 dark:bg-gray-700">
                     <td colSpan={5} className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                       {/* Expanded content for the topic */}
-                      <p className="mb-2">More detailed information about the topic "<span className="font-semibold">{topic}</span>" posted by <span className="font-semibold">{author}</span>.</p>
+                      <p className="mb-2">More detailed information about the topic "{topic}" posted by {author}.</p>
                       <p>This can include the full discussion, attachments, or other relevant details.</p>
                     </td>
                   </tr>

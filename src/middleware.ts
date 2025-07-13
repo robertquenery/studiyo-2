@@ -1,8 +1,9 @@
+
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // List of public routes that don't require authentication
-const publicRoutes = ['/login', '/signup'];
+const publicRoutes = ['/login', '/signup', '/instructor/login'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -12,8 +13,10 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('auth-token');
   const isAuthenticated = !!token;
 
-  // Redirect authenticated users away from public routes
-  if (isAuthenticated && isPublicRoute) {
+  const isInstructorRoute = pathname.startsWith('/instructor');
+
+  // Redirect authenticated users away from public routes except /instructor
+  if (isAuthenticated && isPublicRoute && !isInstructorRoute) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
@@ -23,6 +26,9 @@ export function middleware(request: NextRequest) {
     loginUrl.searchParams.set('from', pathname);
     return NextResponse.redirect(loginUrl);
   }
+
+  // Allow all authenticated users to access /instructor routes
+  // Role-based access control should be handled client-side
 
   return NextResponse.next();
 }

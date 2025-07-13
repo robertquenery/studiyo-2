@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { BookOpen, ClipboardList, Bell, Clock, Star, Users, TrendingUp } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { db } from "@/lib/firebase";
@@ -8,20 +9,28 @@ import { doc, getDoc } from "firebase/firestore";
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const router = useRouter();
   const [userName, setUserName] = useState("Student");
 
   useEffect(() => {
-    const loadUserProfile = async () => {
-      if (!user) return;
-      
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    const checkUserRoleAndRedirect = async () => {
       try {
         const userDocRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userDocRef);
-        
+
         if (userDoc.exists()) {
           const userData = userDoc.data();
+          if (userData.role === "instructor") {
+            router.push("/instructor");
+            return;
+          }
           if (userData.fullName) {
-            setUserName(userData.fullName.split(' ')[0]); // Get first name only
+            setUserName(userData.fullName.split(" ")[0]); // Get first name only
           }
         }
       } catch (error) {
@@ -29,8 +38,8 @@ export default function DashboardPage() {
       }
     };
 
-    loadUserProfile();
-  }, [user]);
+    checkUserRoleAndRedirect();
+  }, [user, router]);
 
   const quickStats = [
     { label: "Current GPA", value: "3.70", icon: <Star className="w-5 h-5" /> },
@@ -44,20 +53,20 @@ export default function DashboardPage() {
       title: "Risk Assessment Framework Project",
       course: "PGMT 2001 - Project Quality & Risk Management",
       dueDate: "March 15, 2024",
-      status: "in-progress"
+      status: "in-progress",
     },
     {
       title: "Process Mapping Exercise",
       course: "OPMT 1005 - Process Improvement & Lean",
       dueDate: "March 18, 2024",
-      status: "pending"
+      status: "pending",
     },
     {
       title: "Marketing Strategy Presentation",
       course: "MGMT 1006 - Fundamentals of Marketing",
       dueDate: "March 22, 2024",
-      status: "pending"
-    }
+      status: "pending",
+    },
   ];
 
   const announcements = [
@@ -65,44 +74,46 @@ export default function DashboardPage() {
       title: "Project Management Workshop",
       content: "Join Curtis Chang for an advanced risk assessment workshop this Friday at 2 PM in Room 301.",
       date: "1 hour ago",
-      priority: "high"
+      priority: "high",
     },
     {
       title: "Study Group Sessions",
       content: "42C Study Group is meeting tonight at 7 PM in the library. All members welcome!",
       date: "3 hours ago",
-      priority: "medium"
+      priority: "medium",
     },
     {
       title: "New Course Materials",
       content: "Updated process mapping templates and agile methodology guides are now available in Resources.",
       date: "1 day ago",
-      priority: "normal"
-    }
+      priority: "normal",
+    },
   ];
 
   const recentActivity = [
     {
       action: "Completed Quiz",
       details: "Agile Methodology Quiz - PGMT 2002",
-      time: "2 hours ago"
+      time: "2 hours ago",
     },
     {
       action: "Joined Study Group",
       details: "42C Study Group - General Discussion",
-      time: "5 hours ago"
+      time: "5 hours ago",
     },
     {
       action: "Downloaded Resource",
       details: "Risk Assessment Templates - PGMT 2001",
-      time: "Yesterday"
-    }
+      time: "Yesterday",
+    },
   ];
 
   return (
     <div className="max-w-7xl mx-auto py-8 px-4 bg-gray-50 dark:bg-gray-900">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Welcome back, {userName}!</h1>
+        <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+          Welcome back, {userName}!
+        </h1>
         <p className="text-gray-600 dark:text-gray-300">Here&apos;s an overview of your academic progress</p>
       </div>
 
@@ -132,7 +143,7 @@ export default function DashboardPage() {
               {upcomingAssignments.map((assignment, index) => (
                 <button
                   key={index}
-                  onClick={() => window.location.href = `/courses/${assignment.course.split(' ')[0].toLowerCase()}`}
+                  onClick={() => (window.location.href = `/courses/${assignment.course.split(" ")[0].toLowerCase()}`)}
                   className="w-full text-left group"
                 >
                   <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-all duration-200 group-hover:bg-gray-100 dark:group-hover:bg-gray-600">
@@ -142,10 +153,14 @@ export default function DashboardPage() {
                     </div>
                     <div className="text-right">
                       <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{assignment.dueDate}</div>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        assignment.status === 'in-progress' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300'
-                      }`}>
-                        {assignment.status === 'in-progress' ? 'In Progress' : 'Pending'}
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full ${
+                          assignment.status === "in-progress"
+                            ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+                            : "bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300"
+                        }`}
+                      >
+                        {assignment.status === "in-progress" ? "In Progress" : "Pending"}
                       </span>
                     </div>
                   </div>
@@ -154,32 +169,32 @@ export default function DashboardPage() {
             </div>
           </div>
 
-        {/* Recent Activity */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
-            <Clock className="w-5 h-5" />
-            Recent Activity
-          </h2>
-          <div className="space-y-4">
-            {recentActivity.map((activity, index) => (
-              <button
-                key={index}
-                onClick={() => window.location.href = `/courses/${activity.details.split(' - ')[1].toLowerCase()}`}
-                className="w-full text-left transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <div className="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                  <div className="w-2 h-2 mt-2 rounded-full bg-blue-600"></div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 dark:text-gray-100">{activity.action}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{activity.details}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{activity.time}</p>
+          {/* Recent Activity */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+              <Clock className="w-5 h-5" />
+              Recent Activity
+            </h2>
+            <div className="space-y-4">
+              {recentActivity.map((activity, index) => (
+                <button
+                  key={index}
+                  onClick={() => (window.location.href = `/courses/${activity.details.split(" - ")[1].toLowerCase()}`)}
+                  className="w-full text-left transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <div className="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div className="w-2 h-2 mt-2 rounded-full bg-blue-600"></div>
+                    <div>
+                      <h3 className="font-medium text-gray-900 dark:text-gray-100">{activity.action}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{activity.details}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{activity.time}</p>
+                    </div>
                   </div>
-                </div>
-              </button>
-            ))}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
         {/* Announcements */}
         <div>
@@ -192,10 +207,15 @@ export default function DashboardPage() {
               {announcements.map((announcement, index) => (
                 <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className={`w-2 h-2 rounded-full ${
-                      announcement.priority === 'high' ? 'bg-red-500' :
-                      announcement.priority === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
-                    }`}></span>
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        announcement.priority === "high"
+                          ? "bg-red-500"
+                          : announcement.priority === "medium"
+                          ? "bg-yellow-500"
+                          : "bg-blue-500"
+                      }`}
+                    ></span>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">{announcement.title}</h3>
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{announcement.content}</p>

@@ -41,6 +41,12 @@ export default function LoginPage() {
               create a new account
             </Link>
           </p>
+          <p className="mt-3 text-sm text-gray-600">
+            Are you an instructor?{" "}
+            <a href="/instructor/login" className="text-blue-600 hover:underline">
+              Sign in here
+            </a>
+          </p>
         </div>
 
         <form className="w-full space-y-6" onSubmit={handleSubmit}>

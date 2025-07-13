@@ -25,7 +25,7 @@ import { useDarkMode } from "@/contexts/dark-mode-context";
 
 export default function AuthenticatedSidebarMenu() {
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { user, claims, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(true);
   const { darkMode, toggleDarkMode } = useDarkMode();
 
@@ -33,7 +33,7 @@ export default function AuthenticatedSidebarMenu() {
     return null;
   }
 
-  const menuItems = [
+  const studentMenuItems = [
     { href: "/", icon: Home, label: "Overview" },
     { href: "/courses", icon: BookOpen, label: "Courses" },
     { href: "/assignments", icon: FileText, label: "Assignments" },
@@ -44,6 +44,19 @@ export default function AuthenticatedSidebarMenu() {
     { href: "/messages", icon: MessageSquare, label: "Messages" },
     { href: "/games", icon: Gamepad2, label: "Games" },
   ];
+
+  const instructorMenuItems = [
+    { href: "/instructor", icon: Home, label: "Dashboard" },
+    { href: "/instructor/courses", icon: BookOpen, label: "Courses" },
+    { href: "/instructor/assignments", icon: FileText, label: "Assignments" },
+    { href: "/instructor/calendar", icon: Calendar, label: "Schedule" },
+    { href: "/instructor/grades", icon: GraduationCap, label: "Grades" },
+    { href: "/instructor/resources", icon: FolderOpen, label: "Resources" },
+    { href: "/instructor/discussions", icon: Users, label: "Discussions" },
+    { href: "/instructor/messages", icon: MessageSquare, label: "Messages" },
+  ];
+
+  const menuItems = claims?.instructor ? instructorMenuItems : studentMenuItems;
 
   return (
     <>
@@ -96,16 +109,16 @@ export default function AuthenticatedSidebarMenu() {
                 {user.email}
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                Student
+                {claims?.instructor ? "Instructor" : "Student"}
               </p>
             </div>
           </div>
 
           <div className="space-y-1">
             <Link
-              href="/profile"
+              href={claims?.instructor ? "/instructor" : "/profile"}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${
-                pathname === "/profile"
+                pathname === (claims?.instructor ? "/instructor" : "/profile")
                   ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
                   : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
               }`}
@@ -146,7 +159,7 @@ export default function AuthenticatedSidebarMenu() {
         </div>
       </div>
 
-      {/* Fixed toggle button when sidebar is collapsed */}
+      {/* Fixed toggle button when sidebar is collapsed */} 
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}

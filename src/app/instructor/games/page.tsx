@@ -140,10 +140,9 @@ const sampleQuestions: Question[] = [
 ];
 
 export default function InstructorGamesPage() {
-  const { user } = useAuth();
   const [questions, setQuestions] = useState<Question[]>(sampleQuestions);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-  const [activeGames, setActiveGames] = useState<GameSession[]>([]);
+  const [activeGames] = useState<GameSession[]>([]);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [newQuestion, setNewQuestion] = useState({
     text: "",

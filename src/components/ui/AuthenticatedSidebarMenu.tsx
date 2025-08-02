@@ -120,9 +120,9 @@ export default function AuthenticatedSidebarMenu() {
 
           <div className="space-y-1">
             <Link
-              href={claims?.instructor ? "/instructor" : "/profile"}
+              href={claims?.instructor ? "/instructor/profile" : "/profile"}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${
-                pathname === (claims?.instructor ? "/instructor" : "/profile")
+                pathname === (claims?.instructor ? "/instructor/profile" : "/profile")
                   ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
                   : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
               }`}

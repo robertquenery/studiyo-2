@@ -8,38 +8,48 @@ import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 export default function InstructorDashboardPage() {
-  const { user } = useAuth();
+  const { user, claims, isLoading } = useAuth();
   const router = useRouter();
   const [userName, setUserName] = useState("Instructor");
+  const [isPageLoading, setIsPageLoading] = useState(true);
 
   useEffect(() => {
+    // Wait for auth context to finish loading
+    if (isLoading) {
+      return;
+    }
+
     if (!user) {
       router.push("/login");
       return;
     }
 
-    const checkUserRoleAndRedirect = async () => {
+    // Check if user has instructor claim
+    if (!claims?.instructor) {
+      router.push("/");
+      return;
+    }
+
+    const loadUserProfile = async () => {
       try {
         const userDocRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          if (userData.role !== "instructor") {
-            router.push("/");
-            return;
-          }
           if (userData.fullName) {
             setUserName(userData.fullName.split(" ")[0]); // Get first name only
           }
         }
       } catch (error) {
         console.error("Error loading user profile:", error);
+      } finally {
+        setIsPageLoading(false);
       }
     };
 
-    checkUserRoleAndRedirect();
-  }, [user, router]);
+    loadUserProfile();
+  }, [user, claims, isLoading, router]);
 
   // Placeholder data for instructor dashboard
   const quickStats = [

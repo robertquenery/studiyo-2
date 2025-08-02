@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
-import { collection, doc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, limit } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, query, orderBy, limit } from "firebase/firestore";
 import { useAuth } from "@/contexts/auth-context";
-import { BookOpen, Edit3, Trophy, Users, Play, Trash2, Plus, Save } from "lucide-react";
+import { Edit3, Trophy, Users, Play, Trash2, Plus, Save } from "lucide-react";
 
 interface Question {
   id: string;

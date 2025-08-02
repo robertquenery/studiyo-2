@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BookOpen, FileText, Video, Download, Book, Calculator, Globe, Presentation, FileSpreadsheet, BarChart, Users, Award, Calendar } from "lucide-react";
+import { BookOpen, FileText, Video, Download, Presentation, FileSpreadsheet, BarChart, Users, Award, Calendar } from "lucide-react";
 
 const teachingResources = [
   {

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Calendar, Clock, CheckCircle, AlertCircle, FileText, Upload, Eye, Users, BookOpen, Award } from "lucide-react";
+import { Calendar, Clock, CheckCircle, AlertCircle, FileText, Eye, Users, BookOpen, Award } from "lucide-react";
 
 type Assignment = {
   id: string;

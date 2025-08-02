@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { UserCircle, Mail, Phone, GraduationCap, Settings, BookOpen } from "lucide-react";
+import { UserCircle, Mail, Phone, GraduationCap, Settings } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { db } from "@/lib/firebase";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";

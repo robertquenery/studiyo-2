@@ -11,7 +11,6 @@ export default function InstructorDashboardPage() {
   const { user, claims, isLoading } = useAuth();
   const router = useRouter();
   const [userName, setUserName] = useState("Instructor");
-  const [isPageLoading, setIsPageLoading] = useState(true);
 
   useEffect(() => {
     // Wait for auth context to finish loading
@@ -43,8 +42,6 @@ export default function InstructorDashboardPage() {
         }
       } catch (error) {
         console.error("Error loading user profile:", error);
-      } finally {
-        setIsPageLoading(false);
       }
     };
 

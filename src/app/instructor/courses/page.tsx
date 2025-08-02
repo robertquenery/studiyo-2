@@ -13,10 +13,19 @@ const courses = [
     schedule: "Mon, Wed 2:00 PM",
     students: 95,
     nextClass: "Monday at 2:00 PM",
+    description: "Comprehensive course on Agile methodologies including Scrum, Kanban, and Lean principles. Students will learn to manage projects iteratively and adaptively.",
     materials: [
       { title: "Scrum Framework Basics", type: "video", duration: "42 min" },
       { title: "Sprint Planning Template", type: "document", size: "1.5 MB" },
       { title: "Agile Retrospectives", type: "video", duration: "38 min" },
+      { title: "Kanban Board Implementation Guide", type: "document", size: "2.1 MB" },
+      { title: "User Story Writing Workshop", type: "video", duration: "55 min" },
+      { title: "Agile Metrics and KPIs", type: "document", size: "1.8 MB" },
+    ],
+    upcomingAssignments: [
+      { title: "Sprint Planning Workshop", due: "March 15, 2024", type: "Group Activity" },
+      { title: "Agile Retrospective Report", due: "March 18, 2024", type: "Individual Report" },
+      { title: "Kanban Board Implementation", due: "March 22, 2024", type: "Project" },
     ]
   }
 ];
@@ -63,8 +72,13 @@ export default function InstructorCoursesPage() {
                   </div>
                 </div>
 
+                {/* Course Description */}
+                <div className="mb-4">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{course.description}</p>
+                </div>
+
                 {/* Course Info */}
-                <div className="grid grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-3 gap-4 text-sm mb-4">
                   <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                     <Calendar className="w-4 h-4" />
                     <span>{course.schedule}</span>
@@ -78,6 +92,24 @@ export default function InstructorCoursesPage() {
                     <span>{course.nextClass}</span>
                   </div>
                 </div>
+
+                {/* Upcoming Assignments */}
+                {course.upcomingAssignments && (
+                  <div className="mb-6">
+                    <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">Upcoming Assignments</h3>
+                    <div className="space-y-2">
+                      {course.upcomingAssignments.map((assignment, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                          <div>
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{assignment.title}</p>
+                            <p className="text-xs text-gray-600 dark:text-gray-300">{assignment.type}</p>
+                          </div>
+                          <span className="text-xs text-gray-600 dark:text-gray-300">{assignment.due}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
                 {/* Course Materials */}

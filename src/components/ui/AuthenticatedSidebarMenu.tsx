@@ -55,6 +55,7 @@ export default function AuthenticatedSidebarMenu() {
     { href: "/instructor/resources", icon: FolderOpen, label: "Resources" },
     { href: "/instructor/discussions", icon: Users, label: "Discussions" },
     { href: "/instructor/messages", icon: MessageSquare, label: "Messages" },
+    { href: "/instructor/games", icon: Gamepad2, label: "Games" },
   ];
 
   const menuItems = claims?.instructor ? instructorMenuItems : studentMenuItems;

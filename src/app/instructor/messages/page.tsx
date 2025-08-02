@@ -25,10 +25,72 @@ type Message = {
 };
 
 const chatRooms: Record<string, Message[]> = {
+  "1": [
+    {
+      id: "1",
+      sender: "Curtis Chang",
+      content: "Hello! I've updated the risk assessment framework for your project.",
+      time: "10:30 AM",
+      isMe: false,
+      status: "read"
+    },
+    {
+      id: "2",
+      sender: "Me",
+      content: "Thank you! I'll review the new framework right away.",
+      time: "10:31 AM",
+      isMe: true,
+      status: "read"
+    },
+    {
+      id: "3",
+      sender: "Curtis Chang",
+      content: "Let me know if you have any questions about the risk mitigation strategies.",
+      time: "10:32 AM",
+      isMe: false,
+      status: "read"
+    }
+  ],
+  "2": [
+    {
+      id: "1",
+      sender: "Moataz El-Menshawy",
+      content: "Please review the lean principles we covered in class.",
+      time: "Yesterday",
+      isMe: false,
+      status: "read"
+    },
+    {
+      id: "2",
+      sender: "Me",
+      content: "I'll go through the process mapping exercises tonight.",
+      time: "Yesterday",
+      isMe: true,
+      status: "read"
+    }
+  ],
+  "3": [
+    {
+      id: "1",
+      sender: "Gabriella Marques",
+      content: "Your leadership style analysis was excellent work.",
+      time: "Yesterday",
+      isMe: false,
+      status: "read"
+    },
+    {
+      id: "2",
+      sender: "Me",
+      content: "Thank you for the feedback!",
+      time: "Yesterday",
+      isMe: true,
+      status: "read"
+    }
+  ],
   "4": [
     {
       id: "1",
-      sender: "Robert John Quenery",
+      sender: "Charles Chen",
       content: "Don't forget our sprint planning session tomorrow.",
       time: "2:45 PM",
       isMe: false,
@@ -36,34 +98,104 @@ const chatRooms: Record<string, Message[]> = {
     },
     {
       id: "2",
-      sender: "Jasmin Angel Bartolome",
+      sender: "Me",
       content: "I'll have my backlog ready for review.",
       time: "2:46 PM",
+      isMe: true,
+      status: "read"
+    }
+  ],
+  "5": [
+    {
+      id: "1",
+      sender: "Kristin Matheson",
+      content: "Your market analysis presentation was very insightful.",
+      time: "3:15 PM",
+      isMe: false,
+      status: "read"
+    },
+    {
+      id: "2",
+      sender: "Me",
+      content: "I'm glad the research was helpful!",
+      time: "3:16 PM",
+      isMe: true,
+      status: "read"
+    }
+  ],
+  "6": [
+    {
+      id: "1",
+      sender: "Jasmin Bartolome",
+      content: "Anyone free for a study session tonight? Working on the risk assessment project.",
+      time: "4:20 PM",
+      isMe: false,
+      status: "read"
+    },
+    {
+      id: "2",
+      sender: "Arvin Garcia",
+      content: "I'm in! Need help with the process mapping too.",
+      time: "4:22 PM",
       isMe: false,
       status: "read"
     },
     {
       id: "3",
-      sender: "Arvin Jake Garcia",
-      content: "Please send me the latest sprint backlog.",
-      time: "2:47 PM",
-      isMe: false,
+      sender: "Me",
+      content: "Count me in. Library at 7pm?",
+      time: "4:25 PM",
+      isMe: true,
       status: "read"
     },
     {
       id: "4",
       sender: "Jashanpreet Kaur",
-      content: "Let's review the sprint goals in our next meeting.",
-      time: "2:48 PM",
+      content: "Perfect timing! I just finished the first part of the risk analysis.",
+      time: "4:26 PM",
       isMe: false,
       status: "read"
     },
     {
       id: "5",
+      sender: "Jasmin Bartolome",
+      content: "I'll bring my notes from Curtis's last lecture.",
+      time: "4:27 PM",
+      isMe: false,
+      status: "read"
+    },
+    {
+      id: "6",
+      sender: "Arvin Garcia",
+      content: "Great! Let's meet at the second floor study rooms.",
+      time: "4:28 PM",
+      isMe: false,
+      status: "read"
+    }
+  ],
+  "7": [
+    {
+      id: "1",
+      sender: "Studiyo AI",
+      content: "Hello! I'm your AI study assistant. How can I help you today?",
+      time: "5:00 PM",
+      isMe: false,
+      status: "read"
+    },
+    {
+      id: "2",
       sender: "Me",
-      content: "Thanks for the updates, I'll prepare accordingly.",
-      time: "2:49 PM",
+      content: "Can you help me understand risk mitigation strategies?",
+      time: "5:01 PM",
       isMe: true,
+      status: "read"
+    },
+    {
+      id: "3",
+      sender: "Studiyo AI",
+      content: "Of course! Risk mitigation involves identifying, evaluating, and implementing strategies to reduce potential risks in a project. Would you like me to explain the main types of risk mitigation strategies?",
+      time: "5:01 PM",
+      isMe: false,
       status: "read"
     }
   ]
@@ -73,48 +205,85 @@ export default function InstructorMessagesPage() {
   const [contacts, setContacts] = useState<Contact[]>([
     {
       id: "1",
-      name: "Robert John Quenery",
-      role: "Student - PGMT 2002",
-      avatar: "RJ",
+      name: "Jasmin Angel Bartolome",
+      role: "Student - 42C Study Group",
+      avatar: "JB",
       status: "online",
       isBot: false,
-      lastMessage: "Don't forget our sprint planning session tomorrow.",
-      time: "2:45 PM"
+      lastMessage: "Working on the risk assessment project",
+      time: "10:30 AM",
+      unread: 2
     },
     {
       id: "2",
-      name: "Jasmin Angel Bartolome",
-      role: "Student - PGMT 2002",
-      avatar: "JA",
+      name: "Robert John Quenery",
+      role: "Student - 42A Study Group",
+      avatar: "RQ",
       status: "online",
       isBot: false,
-      lastMessage: "I'll have my backlog ready for review.",
-      time: "2:46 PM"
+      lastMessage: "Need help with process mapping",
+      time: "Yesterday",
+      unread: 1
     },
     {
       id: "3",
       name: "Arvin Jake Garcia",
-      role: "Student - PGMT 2002",
+      role: "Student - 42C Study Group",
       avatar: "AG",
       status: "online",
       isBot: false,
-      lastMessage: "Please send me the latest sprint backlog.",
-      time: "2:47 PM"
+      lastMessage: "Finished the first part of risk analysis",
+      time: "Yesterday"
     },
     {
       id: "4",
       name: "Jashanpreet Kaur",
-      role: "Student - PGMT 2002",
+      role: "Student - 42A Study Group",
       avatar: "JK",
       status: "online",
       isBot: false,
-      lastMessage: "Let's review the sprint goals in our next meeting.",
-      time: "2:48 PM"
+      lastMessage: "Reviewing Chapter 5 for next class",
+      time: "2:45 PM"
+    },
+    {
+      id: "5",
+      name: "42C Study Group",
+      role: "Group Chat",
+      avatar: "42",
+      status: "online",
+      isBot: false,
+      lastMessage: "Anyone free for study session tonight?",
+      time: "4:20 PM",
+      unread: 3
+    },
+    {
+      id: "6",
+      name: "42A Study Group",
+      role: "Group Chat",
+      avatar: "42",
+      status: "online",
+      isBot: false,
+      lastMessage: "How about we review the case studies?",
+      time: "3:15 PM"
+    },
+    {
+      id: "7",
+      name: "Studiyo AI",
+      role: "AI Teaching Assistant",
+      avatar: "AI",
+      status: "online",
+      isBot: true,
+      lastMessage: "How can I assist with your teaching today?",
+      time: "5:00 PM"
     }
   ]);
 
   const [selectedContact, setSelectedContact] = useState<Contact>(contacts[0]);
   const [messages, setMessages] = useState<Message[]>(chatRooms[contacts[0]?.id] || []);
+
+  const [newMessage, setNewMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Update messages when selectedContact changes
   React.useEffect(() => {
@@ -122,16 +291,54 @@ export default function InstructorMessagesPage() {
       setMessages(chatRooms[selectedContact.id] || []);
     }
   }, [selectedContact]);
-  const [newMessage, setNewMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const botResponses = {
+    "Curtis Chang": [
+      "The risk assessment framework needs to be applied to your project.",
+      "Please review the quality management standards in detail.",
+      "We'll discuss risk mitigation strategies next class.",
+      "Office hours are available if you need help with the assessment.",
+    ],
+    "Moataz El-Menshawy": [
+      "Review the lean principles we discussed in class.",
+      "The process mapping exercise is due next week.",
+      "Make sure to identify waste in your process analysis.",
+      "We'll cover Six Sigma concepts in tomorrow's lecture.",
+    ],
+    "Gabriella Marques": [
+      "Consider how change management affects leadership decisions.",
+      "Your leadership style analysis was well done.",
+      "Next week we'll focus on organizational change models.",
+      "Remember to prepare your change management case study.",
+    ],
     "Charles Chen": [
-      "Thanks for the update, I'll prepare accordingly.",
-      "Please send me the latest sprint backlog.",
-      "Let's review the sprint goals in our next meeting.",
-      "Remember to update your user stories.",
+      "Don't forget our daily scrum meeting tomorrow.",
+      "Your sprint backlog needs to be updated.",
+      "We'll review agile best practices in class.",
+      "The retrospective meeting is scheduled for Friday.",
+    ],
+    "Kristin Matheson": [
+      "Review the marketing mix components for next class.",
+      "Your market analysis shows good insights.",
+      "We'll discuss digital marketing strategies tomorrow.",
+      "The consumer behavior presentation is due next week.",
+    ],
+    "42C Study Group": [
+      "Jasmin Bartolome: How about we review Chapter 5 next time?",
+      "Arvin Garcia: I can share my summary of the risk mitigation frameworks.",
+      "Jashanpreet Kaur: Let's focus on the case studies from last week.",
+      "Jasmin Bartolome: I found some great examples from previous projects.",
+      "Arvin Garcia: Should we book a study room for next Tuesday?",
+      "Jashanpreet Kaur: The process mapping templates were really helpful.",
+      "Jasmin Bartolome: Anyone want to practice the presentation together?",
+      "Arvin Garcia: I can explain the Six Sigma concepts we covered.",
+    ],
+    "Studiyo AI": [
+      "I'd be happy to help you understand that concept.",
+      "Here's a breakdown of the key points we covered.",
+      "Would you like me to provide some practice examples?",
+      "Let me know if you need any clarification.",
+      "I can help you create a study plan for this topic.",
     ],
   };
 

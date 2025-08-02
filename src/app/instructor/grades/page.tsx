@@ -1,39 +1,146 @@
 "use client";
 
 import React from "react";
+import { Award, User } from "lucide-react";
 
 export default function InstructorGradesPage() {
-  const grades = [
-    { id: 1, student: "Robert John Quenery", course: "Agile Project Management", grade: "A" },
-    { id: 2, student: "Jasmin Angel Bartolome", course: "Agile Project Management", grade: "A-" },
-    { id: 3, student: "Arvin Jake Garcia", course: "Agile Project Management", grade: "B+" },
-    { id: 4, student: "Jashanpreet Kaur", course: "Agile Project Management", grade: "B" },
+  const studentGrades = [
+    {
+      id: 1,
+      student: "Robert John Quenery",
+      course: "Agile Project Management",
+      grade: "A",
+      percentage: 95,
+      credits: 3,
+    },
+    {
+      id: 2,
+      student: "Jasmin Angel Bartolome",
+      course: "Agile Project Management",
+      grade: "A-",
+      percentage: 90,
+      credits: 3,
+    },
+    {
+      id: 3,
+      student: "Arvin Jake Garcia",
+      course: "Agile Project Management",
+      grade: "B+",
+      percentage: 87,
+      credits: 3,
+    },
+    {
+      id: 4,
+      student: "Jashanpreet Kaur",
+      course: "Agile Project Management",
+      grade: "B",
+      percentage: 85,
+      credits: 3,
+    },
+  ];
+
+  const gradeHistory = [
+    {
+      semester: "Fall 2023",
+      gpa: 3.75,
+      courses: [
+        { course: "Business Communication", grade: "A", credits: 3 },
+        { course: "Introduction to Management", grade: "A-", credits: 3 },
+        { course: "Business Statistics", grade: "B+", credits: 3 },
+        { course: "Organizational Behavior", grade: "A", credits: 3 },
+      ],
+    },
+    {
+      semester: "Spring 2023",
+      gpa: 3.65,
+      courses: [
+        { course: "Project Management Fundamentals", grade: "A-", credits: 3 },
+        { course: "Operations Management", grade: "B+", credits: 3 },
+        { course: "Strategic Planning", grade: "A", credits: 3 },
+        { course: "Quality Management", grade: "B+", credits: 3 },
+      ],
+    },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 bg-gray-50 dark:bg-gray-900 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Grades</h1>
-      <p className="text-gray-600 dark:text-gray-300">View and manage student grades</p>
+    <div className="max-w-7xl mx-auto py-8 px-4 bg-gray-50 dark:bg-gray-900">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Grades</h1>
+        <p className="text-gray-600 dark:text-gray-300">View and manage student grades</p>
+      </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mt-6">
-        <table className="min-w-full table-auto">
-          <thead>
-            <tr className="bg-gray-100 dark:bg-gray-700">
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Student</th>
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Course</th>
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Grade</th>
-            </tr>
-          </thead>
-          <tbody>
-            {grades.map(({ id, student, course, grade }) => (
-              <tr key={id} className="border-b border-gray-200 dark:border-gray-700">
-                <td className="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">{student}</td>
-                <td className="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">{course}</td>
-                <td className="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">{grade}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Student Grades */}
+        <div className="lg:col-span-2">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+              <User className="w-5 h-5" />
+              Student Grades
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      Student
+                    </th>
+                    <th className="px-4 py-2 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      Course
+                    </th>
+                    <th className="px-4 py-2 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      Credits
+                    </th>
+                    <th className="px-4 py-2 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      Grade
+                    </th>
+                    <th className="px-4 py-2 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      Percentage
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {studentGrades.map(({ id, student, course, credits, grade, percentage }) => (
+                    <tr key={id} className="border-b border-gray-200 dark:border-gray-700">
+                      <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{student}</td>
+                      <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{course}</td>
+                      <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{credits}</td>
+                      <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{grade}</td>
+                      <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{percentage}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Grade History */}
+        <div>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+              <Award className="w-5 h-5" />
+              Grade History
+            </h2>
+            <div className="space-y-4">
+              {gradeHistory.map((semester, index) => (
+                <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">{semester.semester}</h3>
+                    <span className="text-sm font-medium text-blue-600 dark:text-blue-300">GPA: {semester.gpa}</span>
+                  </div>
+                  <div className="space-y-2">
+                    {semester.courses.map((course, courseIndex) => (
+                      <div key={courseIndex} className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-300">{course.course}</span>
+                        <span className="font-medium">{course.grade}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
